@@ -2,7 +2,6 @@
 
 import pandas as pd
 
-
 def suggest_charts(df : pd.DataFrame):
     suggestions = []
 
@@ -37,7 +36,7 @@ def suggest_charts(df : pd.DataFrame):
                     "type" : "scatter",
                     "x" : numeric_cols[i],
                     "y" : numeric_cols[j],
-                    "title": f"{numeric_cols[i]} vs {numeric_cols[i]}"
+                    "title": f"{numeric_cols[i]} vs {numeric_cols[j]}"
                 })
 
         

@@ -1,13 +1,19 @@
 import openai
 import pandas as pd
 import traceback
+import os
 
-openai.api_key   #### ### DEBUG HERE
+#### ### DEBUG HERE
+
+# openai.api_key = os.getenv('OPENAI_API_KEY')
+
+# if not openai.api_key:
+#     raise ValueError("OpenAI API key not found")
 
 def query_dataframe(df: pd.DataFrame, q: str):
 
     prompt = f"""  This is a 
-          Question: "{question}"
+          Question: "{q}"
           """       
 
 
@@ -15,7 +21,7 @@ def query_dataframe(df: pd.DataFrame, q: str):
 
 
     try:
-        response = openai.ChatCompletion.Create(
+        response = openai.ChatCompletion.create(
             model = "gpt-4",
             messages =  [{ "role" : "user", "content": prompt}],
             temperature = 0 
@@ -24,7 +30,7 @@ def query_dataframe(df: pd.DataFrame, q: str):
         code = response["choices"][0]["message"]["content"].strip()
 
 
-        # 
+    
         local_vars = {"df": df}
         exec(code, {}, local_vars)
 
