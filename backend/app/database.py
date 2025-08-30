@@ -4,12 +4,12 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from contextlib import contextmanager
 
-DATABASE_URL =  "postgresql://postgres:faizan123@localhost/dbName"
+DATABASE_URL =  "postgresql://postgres:faizan123@localhost:5432/predictive_data_insights_platform"
 
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit = False, autoflush = False, bind = engine)
 
-@contextmanager
+# @contextmanager
 def get_db():
     db = SessionLocal()
     try:

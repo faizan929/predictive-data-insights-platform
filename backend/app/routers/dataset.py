@@ -4,9 +4,8 @@ from fastapi import APIRouter, UploadFile, File, Depends
 from sqlalchemy.orm import Session
 import pandas as pd
 from app.services import dataset_service, chart_service
-from app.models.database import Dataset
-
-from app.services.database_service import get_db
+from app.models import Dataset
+from app.database import get_db
 import uuid  # universally unique identifiers
 
 

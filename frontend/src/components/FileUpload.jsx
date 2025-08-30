@@ -32,7 +32,7 @@ const FileUpload = ({ onUploadSuccess }) => {
       formData.append("file", file);
 
       ///Backend API
-      const res = await fetch("http://localhost:8000/datasets/upload", {
+      const res = await fetch("http://localhost:8000/api/dataset/upload", {
         method: "POST",
         body: formData,
       });

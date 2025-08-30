@@ -2,13 +2,11 @@
 
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-
 from app.services import prediction_service
 import pandas as pd
-from app.models.database import Dataset, Model
-from app.services.database_service import get_db
+from app.models import Dataset, Model
+from app.database import get_db
 
-# from app.database import get_db
 
 router = APIRouter()
 

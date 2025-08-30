@@ -10,7 +10,7 @@ app = FastAPI(title = "Predictive Data Insights API")
 # cors: cross origin resource sharing
 app.add_middleware(
     CORSMiddleware,
-    allow_origins = ["*"] ,
+    allow_origins = ["http://localhost:5173"] ,
     allow_credentials = True,
     allow_methods = ["*"],
     allow_headers = ["*"],
