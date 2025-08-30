@@ -14,7 +14,7 @@ def train_model(df: pd.DataFrame, target: str):
     if X_numeric.empty:
         raise ValueError("No numeric features are found for training")
 
-    if y.dtype == "Object" or y.nunique() < 20:
+    if y.dtype == "object" or y.nunique() < 20:
         task_type = "classification"
     else:
         task_type = "regression"
@@ -24,7 +24,7 @@ def train_model(df: pd.DataFrame, target: str):
     from sklearn.metrics import accuracy_score, r2_score
     from sklearn.metrics import classification_report, mean_squared_error
 
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 42)
+    X_train, X_test, y_train, y_test = train_test_split(X_numeric, y, test_size = 0.2, random_state = 42)
 
 
     if task_type == "classification":
@@ -35,6 +35,14 @@ def train_model(df: pd.DataFrame, target: str):
         metrics = {
             "accuracy": accuracy_score(y_test, pred),
             "report": classification_report(y_test, pred, output_dict = True)
+        }
+
+        return {
+            "model" : model,
+            "task" : task_type,
+            "metrics" : metrics,
+            "feature_columns" : feature_cols,
+            "predictions" : pred.tolist(),
         }
     
     else:

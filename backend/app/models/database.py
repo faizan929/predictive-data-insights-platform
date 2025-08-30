@@ -20,16 +20,16 @@ class Dataset(Base):
     created_at = Column(DateTime, default = datetime.utcnow)
 
 
-    def set_DataFrame(self, df: pd.DataFrame):
+    def set_dataframe(self, df: pd.DataFrame):
 
         self.data = pickle.dumps(df)
         self.columns_info = {
-            "columns" : list(df.column),
+            "columns" : list(df.columns),
             "dtypes" : {col: str(df[col].dtype) for col in df.columns},
             "shape" : df.shape
         }
    
-    def get_DataFrame(self) -> pd.DataFrame:
+    def get_dataframe(self) -> pd.DataFrame:
 
         if self.data is None:
             raise ValueError("No data stored")
@@ -50,7 +50,7 @@ class Model(Base):
 
     def set_model(self, model, feature_columns: list):
         self.model_data = pickle.dumps(model)
-        self.feature_columns = feature_columns
+        self.feature_cols = feature_columns
 
     def get_model(self):
         if self.model_data is None:

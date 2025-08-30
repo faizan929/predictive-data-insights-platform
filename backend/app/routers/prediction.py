@@ -20,25 +20,17 @@ async def train(session_id: str, target: str, db: Session = Depends(get_db)):
     if not dataset:
         return {"error": "no dataset present for this session"}
 
-    # if not dataset_exists(session_id):
-    #     return {"error" : "no dataset found"}
-
-    df = dataset.get_DataFrame()
-
+    df = dataset.get_dataframe()
     result = prediction_service.train_model(df, target)
-
     model_record = Model(
         session_id = session_id,
         target_column = target,
         model_type = result["task"],
         metrics = result["metrics"]
     )
-
     model_record.set_model(result["model"], result["feature_columns"])
-
     db.add(model_record)
     db.commit()
-
     return {
         "task" : result["task"],
         "metrics" : result["metrics"],
@@ -57,9 +49,8 @@ async def predict(session_id : str, new_data: dict, db: Session = Depends(get_db
         }
 
     try:
-
         trained_model = model_record.get_model()
-        feature_columns = model_record.feature_columns
+        feature_columns = model_record.feature_cols
 
         df = pd.DataFrame([new_data])
 
